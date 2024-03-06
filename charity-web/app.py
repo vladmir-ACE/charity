@@ -1,6 +1,8 @@
 from flask import Flask ,render_template
 from charity import charity_bp
+from flask_cors import CORS
 
-app = Flask(__name__,template_folder='charity/templates',static_folder='charity/static')
+app = Flask(__name__)
+CORS(app)
 
-app.register_blueprint(charity_bp,url_prefix='')
+app.register_blueprint(charity_bp,url_prefix='/charity')
