@@ -1,13 +1,8 @@
-from flask import Flask ,render_template, Blueprint,jsonify
-from charity.data import projets
-charity_bp=Blueprint('charity', __name__,template_folder= 'templates',static_folder='static') 
+from flask import  Blueprint
 
+charity_web=Blueprint('charity_web', __name__,template_folder= 'templates',static_folder='static') 
+charity_api=Blueprint('charity_api', __name__,static_folder='static') 
 
+from charity.views import route
+from charity.views import api_route
 
-@charity_bp.route('/')
-def hello_world():
-    return render_template('index.html',projets=projets)
-
-@charity_bp.route("/projet")
-def getAllProject():
-    return jsonify(projets)
