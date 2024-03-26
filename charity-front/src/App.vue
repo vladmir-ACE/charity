@@ -1,48 +1,55 @@
 <script setup lang="ts">
-import axios from 'axios';
-import { ref } from 'vue';
+
+import router from "./router"
 
 
-const apiData = ref<any[]>([]);
-
-// Fonction pour récupérer les données depuis votre API Flask
-const fetchData = async () => {
-  try {
-    const response = await axios.get('http://127.0.0.1:5000/api/charity/projet');
-    apiData.value = response.data; // Stocker les données dans la variable réactive
-  } catch (error) {
-    console.error('Erreur lors de la récupération des données:', error);
-  }
-};
-
-function getUrlImage(image:any){
-  return "http://127.0.0.1:5000/charity/static/charity_img/"+image
-     
-}
-
-fetchData();
 </script>
 
 <template>
   
- <div class="container">
-  <div class="row">
-
-<div v-for="(item, index) in apiData" :key="index" class="col-md-3">
-  <div class="card" style="width: 18rem;">
-    <img :src="getUrlImage(item.image)" :alt="item.image" class="image">
-    <div class="card-body">      
-      <p>{{item.categorie}}</p>
-  
-    <h5 class="card-title">{{item.libelle}}</h5>
-    <p class="card-text">{{item.description}}</p>
-    <a href="#" class="btn btn-primary">Go somewhere</a>
-   </div>
-  </div> 
+  <nav class="navbar navbar-expand-lg navbar-light bg-light">
+  <div class="container-fluid">
+    <a class="navbar-brand" href="#">Navbar</a>
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+        <li class="nav-item">
+          <a class="nav-link active" aria-current="page" href="#">Home</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="#"><router-link to="/categorie">Catégories</router-link></a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="#"><router-link to="/projet">Projet</router-link></a>
+        </li>
+        <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+            Dropdown
+          </a>
+          <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+            <li><a class="dropdown-item" href="#">Action</a></li>
+            <li><a class="dropdown-item" href="#">Another action</a></li>
+            <li><hr class="dropdown-divider"></li>
+            <li><a class="dropdown-item" href="#">Something else here</a></li>
+          </ul>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link disabled" href="#" tabindex="-1" aria-disabled="true">Disabled</a>
+        </li>
+      </ul>
+      <form class="d-flex">
+        <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
+        <button class="btn btn-outline-success" type="submit">Search</button>
+      </form>
+    </div>
   </div>
-</div>
+</nav>
 
- </div>
+<div class="container" id="app">
+ <router-view></router-view>
+</div>
 </template>
 
 <style>

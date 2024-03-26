@@ -8,7 +8,7 @@ class CategorieController:
       def create(self):
         try:
             data = request.get_json()
-            nouvelle_categorie = self.categorie_model(libelle=data['libelle'])
+            nouvelle_categorie = self.categorie_model(libelle=data['libelle'],description=data['description'])
             db.session.add(nouvelle_categorie)
             db.session.commit()
             return jsonify({'message': 'Nouvelle catégorie créée avec succès'}), 201
