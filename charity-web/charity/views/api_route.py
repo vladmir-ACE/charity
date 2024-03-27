@@ -19,5 +19,14 @@ def listCategory():
     return categorie_controller.all()
 
 
+@charity_api.route("/update/<int:id>", methods=["PUT"])
+def UpdateCat(id):
+    return categorie_controller.update(id=id)
+
+@charity_api.route("/delete/<int:id>", methods=["DELETE"])
+def delete(id):
+    return categorie_controller.delete(id=id)
+
+
 
 

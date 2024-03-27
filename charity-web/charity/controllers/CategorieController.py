@@ -23,8 +23,47 @@ class CategorieController:
       def all(self):
         try:
             categories = Categorie.query.all()
-            result = [{'id': categorie.id, 'libelle': categorie.libelle} for categorie in categories]
+            result = [{'id': categorie.id, 'libelle': categorie.libelle,'description':categorie.description} for categorie in categories]
             return jsonify(result), 200
         except Exception as e:
             return jsonify({'message': e}), 50
+        
+# update les donnes
+
+      def update(self,id):
+          try:
+              categorie=Categorie.query.get(id)
+              print(Categorie)
+              if not categorie:
+                   return jsonify({"message":"La categorie n\'existe pas"}),404
+              data=request.get_json()
+              for key,value in data.items():
+                setattr(categorie,key,value)
+              db.session.commit()
+              return jsonify({"message": "Mise à jour réussie"}),200   
+          except Exception as e:
+             db.session.rollback()
+             return jsonify({"message":str(e)}),500    
+         
+#delete categorie
+      def delete(self,id):
+          try:
+               categorie=Categorie.query.get(id)
+               if not categorie:
+                   return jsonify({"message":"La categorie n\'existe pas"}),404
+               db.session.delete(categorie)
+               db.session.commit()
+               return jsonify({"message": "sucess dellete "}),200   
+          except Exception as e:
+             db.session.rollback()
+             return jsonify({"message":str(e)}),500    
+         
+               
+               
+            
+               
+              
+             
+
+
                             
