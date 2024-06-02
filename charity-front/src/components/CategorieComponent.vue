@@ -129,8 +129,6 @@ export default{
 
                 }
           
-          
-
      },
      mounted() {
          this.listCategorie()
@@ -142,7 +140,7 @@ export default{
 </script>
 
 <template>
-     <h1>Categorie work</h1>
+     <h1>Categorie Crud</h1>
      <div class="d-flex justify-content-center ">
        <div class="card f-card">
           <form class="w-100" @submit.prevent="addCategorie">

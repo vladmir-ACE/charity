@@ -1,18 +1,34 @@
 {% extends "layout.html" %}
 
+{% block style %}
+     <style>
+
+      .fixed-height {
+        height: 200px;
+        object-fit: cover;
+        width: 100%; /* Ensure the image takes the full width of the card */
+      }
+
+     </style>
+{%endblock%}
+
+
+
 {% block content %}
+
+<h1 class="">Liste des projets </h1>
 
 <div class="row">
     {% for item in projets %}
     <div class="col-md-3">
     <div class="card" style="width: 18rem;">
-    <img src={{url_for('charity_web.static',filename='charity_img/'+item.image)}} class="card-img-top" alt="{{item.libelle}}">
+    <img src={{url_for('charity_web.static',filename='image/'+item.image)}} class="card-img-top fixed-height" alt="{{item.libelle}}" >
     <div class="card-body">      
         <p>{{item.categorie}}</p>
     
       <h5 class="card-title">{{item.libelle}}</h5>
       <p class="card-text">{{item.description}}</p>
-      <a href="#" class="btn btn-primary">Go somewhere</a>
+      <a  href="{{ url_for('charity_web.detail', id=item.id) }}" class="btn btn-primary">Detail</a>
     </div>
   </div>
 </div>

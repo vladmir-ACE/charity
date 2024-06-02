@@ -1,0 +1,149 @@
+{% extends "layout.html" %} 
+
+{% block style %}
+     <style>
+
+      body{
+        background-image: url("{{url_for('charity_web.static',filename='charity_img/' + 'bg.png')}}");
+        width: 100%;
+        height: 100%;
+      }
+
+     </style>
+{%endblock%}
+
+
+
+{% block content %}
+<div class="container" style="padding-top: 5%;">
+  <div class="row">
+    <div class="col-md-8 offset-md-2">
+      <div class="card">
+        <div class="card-header bg-dark">
+          <h1 class="my-4 text-white w-100 text-center" >Détails du Projet </h1>
+        </div>
+        <div class="card-body">
+          <div class="row">
+            <!-- Colonne pour l'image -->
+            <div class="col-md-4">
+              <img
+                src="{{url_for('charity_web.static',filename='image/' + projet.image)}}"
+                class="img-fluid"
+                
+              />
+            </div>
+            <!-- Colonne pour les autres informations -->
+            <div class="col-md-8">
+              <div class="card">
+                <div class="card-body">
+                  <h5 class="card-title">{{ projet.libelle }}</h5>
+                  <p class="card-text">{{ projet.description }}</p>
+                  <p class="card-text">Montant :{{ total_dons }}</p>
+                </div>
+                <ul class="list-group list-group-flush">
+                  <li class="list-group-item">
+                    Catégorie: {{ projet.categorie.libelle }}
+                  </li>
+                </ul>
+              </div>
+              <!-- Bouton "Faire un don" -->
+              <button
+                type="button"
+                class="btn btn-primary mt-3"
+                data-bs-toggle="modal"
+                data-bs-target="#myModal"
+              >
+                Faire un don
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div
+  class="modal fade"
+  id="myModal"
+  tabindex="-1"
+  aria-labelledby="myModalLabel"
+  aria-hidden="true"
+>
+  <div class="modal-dialog  modal-lg" role="document" >
+    <div class="modal-content" >
+      <div class="modal-header">
+        <h5 class="modal-title w-100 text-center" id="donModalLabel">Faire un don pour ce projet </h5>
+        <button
+          type="button"
+          class="btn-close"
+          data-bs-dismiss="modal"
+          aria-label="Close"
+        ></button>
+      </div>
+      <div class="modal-body d-flex row" style=" padding: 2%;">
+
+        <div class="col-md-4">
+          <img
+          src="{{url_for('charity_web.static',filename='charity_img/' + 'donner.png')}}"
+          class="img-fluid"
+          
+        />
+        </div>
+                  
+            <div class="col-md-8" >
+              <form action="{{ url_for('charity_web.faire_un_don') }}" method="post" id="form-don">
+              <div class="form-group">
+                <input type="hidden" class="form-control" id="name" name="projet_id" value="{{ projet.id }}" />
+              </div>
+              <div class="form-group">
+                <label for="name">Nom & Prénom:</label>
+                <input type="text" class="form-control" id="name" name="name" />
+              </div>
+              <div class="form-group">
+                <label for="montant">Montant du don:</label>
+                <input
+                  type="number"
+                  class="form-control"
+                  id="montant"
+                  name="montant"
+                />
+              </div>
+              <div class="form-group">
+                <label for="numero">Numéro de téléphone:</label>
+                <input
+                  type="number"
+                  class="form-control"
+                  id="numero"
+                  name="numero"
+                />
+              </div>
+              <div class="form-group">
+                <label for="moyen_paiement">Moyen de paiement:</label>
+                <select
+                  class="form-control"
+                  id="moyen_paiement"
+                  name="moyen_paiement"
+                >
+                  <option>Tmoney</option>
+                  <option>Flooz</option>
+                </select>
+              </div>
+              <br>
+              
+              <button type="reset" class="btn btn-secondary" >
+                Annuler
+              </button>
+              <button type="submit" class="btn btn-success">Valider</button>
+              </form>
+            </div>
+  
+      
+      
+        </div>
+      
+    
+    </div>
+  </div>
+</div>
+{% endblock %}
